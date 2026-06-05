@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --amber: #c8af3c;
+  --amber-dim: rgba(200,175,60,.5);
+  --amber-faint: rgba(200,175,60,.12);
+  --amber-ghost: rgba(200,175,60,.05);
+  --bg: #090800;
+  --font: 'Share Tech Mono', monospace;
+}
+
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--amber); font-family: var(--font); }
+
+/* ── LOADING ── */
+#screen-loading {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; align-items: center; justify-content: center; z-index: 100;
+  transition: opacity 1s;
+}
+#loading-inner { text-align: center; }
+#loading-title { font-size: 48px; letter-spacing: 16px; color: var(--amber); margin-bottom: 8px; }
+#loading-sub { font-size: 11px; color: var(--amber-dim); letter-spacing: 4px; margin-bottom: 48px; }
+#loading-bar-wrap { width: 200px; height: 1px; background: var(--amber-faint); margin: 0 auto 16px; }
+#loading-bar { height: 1px; background: var(--amber); width: 0; transition: width .4s; }
+#loading-status { font-size: 10px; color: var(--amber-dim); letter-spacing: 3px; }
+
+/* ── ENTRY ── */
+#screen-entry {
+  position: fixed; inset: 0; background: var(--bg);
+  display: none; align-items: center; justify-content: center; z-index: 90;
+}
+#entry-inner {
+  display: flex; flex-direction: column; gap: 18px;
+  align-items: center; width: 90%; max-width: 340px; text-align: center;
+}
+.e-title { font-size: 24px; letter-spacing: 4px; }
+.e-sub { font-size: 12px; color: var(--amber-dim); letter-spacing: 3px; }
+#entry-name {
+  width: 100%; background: transparent;
+  border: none; border-bottom: 1px solid var(--amber-dim);
+  color: var(--amber); font-family: var(--font); font-size: 18px;
+  padding: 10px 0; text-align: center; outline: none; letter-spacing: 2px;
+}
+#entry-name:focus { border-bottom-color: var(--amber); }
+#entry-name::placeholder { color: var(--amber-faint); font-size: 13px; }
+#entry-btn {
+  width: 100%; background: transparent; border: 1px solid var(--amber-dim);
+  color: var(--amber); font-family: var(--font); font-size: 13px;
+  padding: 14px; cursor: pointer; letter-spacing: 4px; transition: all .2s;
+}
+#entry-btn:hover { background: var(--amber-ghost); border-color: var(--amber); }
+.e-warn { font-size: 10px; color: rgba(200,175,60,.2); letter-spacing: 2px; line-height: 2; }
+
+/* ── GAME ── */
+#screen-game { position: fixed; inset: 0; display: none; }
+#c { width: 100%; height: 100%; display: block; }
+
+/* HUD */
+#hud-tl {
+  position: absolute; top: 16px; left: 16px;
+  font-size: 10px; letter-spacing: 3px; line-height: 1.9;
+}
+#hud-location { color: var(--amber-dim); }
+#hud-coords { color: rgba(200,175,60,.3); }
+#hud-tr {
+  position: absolute; top: 16px; right: 16px;
+  text-align: right; font-size: 10px; letter-spacing: 3px; line-height: 1.9;
+}
+#hud-compass { color: var(--amber-dim); }
+#hud-players { color: rgba(200,175,60,.3); }
+
+/* ECO DISPLAY */
+#echo-display {
+  position: absolute; bottom: 72px; left: 50%; transform: translateX(-50%);
+  width: min(520px, 88%);
+  background: rgba(6,5,0,.92);
+  border: .5px solid rgba(200,175,60,.12);
+  border-left: 2px solid rgba(200,155,30,.35);
+  padding: 14px 18px;
+  opacity: 0; transition: opacity .7s;
+  pointer-events: none;
+}
+#echo-display.visible { opacity: 1; pointer-events: all; }
+#echo-tag { font-size: 9px; color: rgba(200,175,60,.28); letter-spacing: 4px; margin-bottom: 6px; }
+#echo-author { font-size: 10px; color: rgba(200,155,30,.4); letter-spacing: 2px; margin-bottom: 8px; min-height: 14px; }
+#echo-body { font-size: 13px; color: rgba(200,175,60,.85); line-height: 1.75; margin-bottom: 12px; }
+#echo-react { display: flex; justify-content: flex-end; }
+.react-btn {
+  background: transparent; border: .5px solid rgba(200,175,60,.2);
+  color: rgba(200,175,60,.45); font-family: var(--font); font-size: 10px;
+  padding: 5px 12px; cursor: pointer; letter-spacing: 2px; transition: all .15s;
+}
+.react-btn:hover { border-color: var(--amber-dim); color: var(--amber-dim); }
+
+/* CROSSHAIR */
+#crosshair {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(200,175,60,.3);
+  pointer-events: none;
+}
+
+/* VIGNETTE */
+#vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.75) 100%);
+}
+
+/* HINT */
+#hint {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 12px; color: var(--amber-dim); letter-spacing: 2px;
+  text-align: center; pointer-events: none; line-height: 2;
+}
+
+/* CONTROLS */
+#controls {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 0;
+  background: rgba(0,0,0,.85);
+  border-top: .5px solid rgba(200,175,60,.08);
+}
+#thought-input {
+  flex: 1; background: transparent;
+  border: none; border-right: .5px solid rgba(200,175,60,.1);
+  color: var(--amber); font-family: var(--font); font-size: 12px;
+  padding: 14px 16px; outline: none; letter-spacing: 1px;
+}
+#thought-input::placeholder { color: rgba(200,175,60,.18); }
+#btn-fragment {
+  background: transparent; border: none;
+  color: var(--amber-dim); font-family: var(--font); font-size: 11px;
+  padding: 14px 20px; cursor: pointer; letter-spacing: 2px; white-space: nowrap;
+  transition: all .15s;
+}
+#btn-fragment:hover { color: var(--amber); background: var(--amber-ghost); }
+#btn-fragment:disabled { opacity: .3; cursor: not-allowed; }
+
+/* MOBILE */
+#mobile-pad {
+  display: none; position: absolute; bottom: 60px; right: 12px;
+  flex-direction: column; gap: 4px; align-items: center;
+}
+.mb {
+  width: 44px; height: 44px; background: rgba(0,0,0,.7);
+  border: .5px solid rgba(200,175,60,.18); color: var(--amber-dim);
+  font-size: 16px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+#mb-row1, #mb-row2 { display: flex; gap: 4px; }
+
+@media (max-width: 600px) {
+  #mobile-pad { display: flex; }
+  #hint { display: none; }
+  #echo-display { bottom: 60px; }
+}

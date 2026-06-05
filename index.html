@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>LIMN</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="screen-loading">
+  <div id="loading-inner">
+    <div id="loading-title">LIMN</div>
+    <div id="loading-sub">o lugar traça o contorno do que você é</div>
+    <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
+    <div id="loading-status">inicializando...</div>
+  </div>
+</div>
+
+<!-- ENTRADA -->
+<div id="screen-entry">
+  <div id="entry-inner">
+    <div class="e-title">você acordou aqui.</div>
+    <div class="e-sub">como te chamavam?</div>
+    <input id="entry-name" type="text" placeholder="nome ou apelido..." maxlength="24" autocomplete="off" spellcheck="false">
+    <button id="entry-btn" onclick="startGame()">ENTRAR</button>
+    <div class="e-warn">o lugar vai te ler.<br>seus fragmentos vão mudar.</div>
+  </div>
+</div>
+
+<!-- JOGO -->
+<div id="screen-game">
+  <canvas id="c"></canvas>
+
+  <div id="hud-tl">
+    <div id="hud-location">LIMN · NEXUS</div>
+    <div id="hud-coords">0 · 0</div>
+  </div>
+  <div id="hud-tr">
+    <div id="hud-compass">N</div>
+    <div id="hud-players"><span id="hud-player-count">0</span> presentes</div>
+  </div>
+
+  <div id="echo-display">
+    <div id="echo-tag">// fragmento</div>
+    <div id="echo-author"></div>
+    <div id="echo-body"></div>
+    <div id="echo-react">
+      <button class="react-btn" id="btn-resonate" onclick="resonateEcho()">ressoar</button>
+    </div>
+  </div>
+
+  <div id="crosshair"></div>
+  <div id="vignette"></div>
+  <div id="hint">clique para explorar · WASD para mover</div>
+
+  <div id="controls">
+    <input id="thought-input" type="text" placeholder="fragmento · ou /oraculo [pergunta]..." maxlength="140" autocomplete="off" spellcheck="false">
+    <button id="btn-fragment" onclick="leaveFragment()">FRAGMENTAR</button>
+  </div>
+
+  <div id="mobile-pad">
+    <div id="mb-row1"><div class="mb" id="mb-f">↑</div></div>
+    <div id="mb-row2">
+      <div class="mb" id="mb-l">←</div>
+      <div class="mb" id="mb-b">↓</div>
+      <div class="mb" id="mb-r">→</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>
